@@ -39,7 +39,8 @@ jobs:
         with:
           image-ref: 'mi-api-vulnerable:latest'
           format: 'table'
-          exit-code: '1' 
+          exit-code: '1'
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
+          trivyignores: '.trivyignore'
