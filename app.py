@@ -1,15 +1,16 @@
+import os
 from flask import Flask
 
 app = Flask(__name__)
 
-# 🚨 VULNERABILIDAD 1: Secreto "hardcodeado" (Bandit lo detectará)
-AWS_SECRET_KEY = "AKIAIOSFODNN7EXAMPLE"
-DB_PASSWORD = "super_secret_password_123"
+# Usar variables de entorno en lugar de credenciales en el código
+AWS_SECRET_KEY = os.environ.get("AWS_SECRET_KEY", "default_secret")
+DB_PASSWORD = os.environ.get("DB_PASSWORD", "default_pass")
 
 @app.route("/")
 def hello():
-    return "¡API DevSecOps desplegada correctamente!"
+    return "¡API DevSecOps desplegada y segura!"
 
 if __name__ == "__main__":
-    # 🚨 VULNERABILIDAD 2: Ejecutar Flask en modo debug en producción
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    # Desactivar debug para producción
+    app.run(host="0.0.0.0", port=5000, debug=False)
