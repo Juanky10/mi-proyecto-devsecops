@@ -2,8 +2,13 @@ FROM python:3.11-alpine
 
 WORKDIR /app
 
+# PARCHE OS: Actualizar todos los paquetes de Alpine a su última versión segura
+RUN apk update && apk upgrade --no-cache
+
 COPY requirements.txt .
-# Alpine requiere a veces herramientas extra de compilación, pero para Flask esto bastará
+
+# PARCHE HERRAMIENTAS PYTHON: Actualizar el instalador pip por si acaso
+RUN pip install --upgrade pip --no-cache-dir
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
